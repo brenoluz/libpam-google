@@ -1,0 +1,35 @@
+pam_google
+==========
+
+  pam_google é um modulo PAM que autentica o usuário Linux usando a conta do google.
+
+
+Requirements
+------------
+
+  Python >= 2.2
+  pam >= 0.76
+  python-gdata
+  libpam-python
+
+Installing
+----------
+    copie o arquivo pam_google.py para a pasta /lib/security/
+    #cp pam_google.py /lib/security/
+    
+    edite o arquivo /etc/pam.d/common-auth
+    e addicione a seguinte linha 
+    auth        sufficient       pam_python.py pam_google.py
+
+Documentation
+-------------
+
+
+
+License
+-------
+
+
+--
+Breno M Luz
+2011-1-11
