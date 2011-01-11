@@ -1,25 +1,19 @@
-#
-# Duplicates pam_permit.c
-#
-import pdb
 import getpass
 from gdata.contacts import service
-DEFAULT_USER	= "nobody"
 
 def pam_sm_authenticate(pamh, flags, argv):
   try:
-    user = pamh.get_user(None)	
-    if(user == "marxluz"):	
-      s = service.ContactsService()
-      s.email = user
-      s.password = getpass.getpass()
-      s.ProgrammaticLogin()
-      pamh.user = "breno"
-      return pamh.PAM_SUCCESS
-    else:
-      return pamh.PAM_IGNORE
+    user = pamh.get_user()
+    if(user == "root"):
+      return pamh.IGNORE
+    s = service.ContactsService()
+    s.email = pamh.get_user(None)
+    s.password = getpass.getpass()
+    s.ProgrammaticLogin()
+    return pamh.PAM_SUCCESS
   except pamh.exception, e:
     return e.pam_result
+  return pamh.IGNORE
 
 def pam_sm_setcred(pamh, flags, argv):
   return pamh.PAM_SUCCESS
