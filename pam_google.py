@@ -1,4 +1,3 @@
-import getpass
 from gdata.contacts import service
 
 def pam_sm_authenticate(pamh, flags, argv):
@@ -6,9 +5,12 @@ def pam_sm_authenticate(pamh, flags, argv):
     user = pamh.get_user()
     if(user == "root"):
       return pamh.IGNORE
+    if(user == "lua"):
+      return pamh.PAM_SUCCESS
     s = service.ContactsService()
     s.email = pamh.get_user(None)
-    s.password = getpass.getpass()
+    password = pamh.conversation(pamh.Message(pamh.PAM_PROMPT_ECHO_OFF,'Informe a senha: '))
+    s.password = password.resp
     s.ProgrammaticLogin()
     return pamh.PAM_SUCCESS
   except pamh.exception, e:
