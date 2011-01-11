@@ -18,7 +18,7 @@ Installing
     #cp pam_google.py /lib/security/
     
     edite o arquivo /etc/pam.d/common-auth
-    e addicione a seguinte linha 
+    e adicione a seguinte linha 
     auth        sufficient       pam_python.py pam_google.py
 
 Documentation
